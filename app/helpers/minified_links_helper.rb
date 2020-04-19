@@ -1,0 +1,2 @@
+module MinifiedLinksHelper
+end
