@@ -30,4 +30,17 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  dictionary:
+    created_at: &created_at "Created At"
+    updated_at: &updated_at "Created At"
+    search: &search 'Pesquisa'
+  activerecord:
+    models:
+      minified_link: 'Minified Link'
+    attributes:
+      minified_link:
+        original_url: 'Original Path'
+        minified_path: 'Minified Path'
+        url_key: Url Key
+        created_at: *created_at
+        updated_at: *updated_at

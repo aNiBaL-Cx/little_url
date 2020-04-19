@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Little URL</h1>
+
+<div class="minifier-form-container">
+  <%= render 'form', minified_link: @minified_link %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.minified_link.original_url') %></th>
+      <th><%= t('activerecord.attributes.minified_link.minified_path') %></th>
+      <th><%= t('activerecord.attributes.minified_link.created_at') %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @minified_links.each do |minified_link| %>
+      <tr>
+        <td><%= link_to minified_link.original_url, minified_link.original_url %></td>
+        <td><%= link_to [request.base_url , minified_link.minified_path].join('/'), [request.base_url , minified_link.minified_path].join('/') %></td>
+        <td><%= l minified_link.created_at, format: :long %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'New Minified Link', new_minified_link_path %>

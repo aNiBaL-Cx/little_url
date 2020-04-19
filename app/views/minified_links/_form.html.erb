@@ -1,0 +1,22 @@
+<%= form_with(model: minified_link, local: true) do |form| %>
+  <% if minified_link.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(minified_link.errors.count, "error") %> prohibited this minified_link from being saved:</h2>
+
+      <ul>
+        <% minified_link.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :original_url %>
+    <%= form.text_field :original_url %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

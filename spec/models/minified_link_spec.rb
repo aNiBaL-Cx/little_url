@@ -84,4 +84,13 @@ RSpec.describe MinifiedLink, type: :model do
 
   end
 
+  describe '.search_by_url_key' do
+    before {described_class.create!(original_url: 'https://www.sapo.pt') }
+    context 'with valid params' do
+      it 'finds the record by key' do
+        record = described_class.last
+        expect(described_class.search_by_url_key(HashingService.instance.encode(record.id)).id).to eq(record.id)
+      end
+    end
+  end
 end

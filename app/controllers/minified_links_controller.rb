@@ -4,7 +4,8 @@ class MinifiedLinksController < ApplicationController
   # GET /minified_links
   # GET /minified_links.json
   def index
-    @minified_links = MinifiedLink.all
+    @minified_link = MinifiedLink.new
+    @minified_links = MinifiedLink.all.order(id: 'desc')
   end
 
   # GET /minified_links/1
@@ -13,13 +14,12 @@ class MinifiedLinksController < ApplicationController
   end
 
   def goto_link
-    minified_link_id = HashingService.instance.decode(params[:id])[0]
-    @minified_link = MinifiedLink.find(minified_link_id)
-    redirect_to @minified_link.original_url
-  end
-  # GET /minified_links/new
-  def new
-    @minified_link = MinifiedLink.new
+    @minified_link = MinifiedLink.search_by_url_key(params[:id])
+    if @minified_link.present?
+      redirect_to @minified_link.original_url
+    else
+      redirect_to '/', error: 'Não encontrado'
+    end
   end
 
   # POST /minified_links
@@ -27,13 +27,15 @@ class MinifiedLinksController < ApplicationController
   def create
     @minified_link = MinifiedLink.new(minified_link_params)
 
-
     respond_to do |format|
       if @minified_link.save
-        format.html { redirect_to @minified_link, notice: 'Minified link was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Minified link was successfully created.' }
         format.json { render :show, status: :created, location: @minified_link }
       else
-        format.html { render :new }
+        format.html do
+          @minified_links = MinifiedLink.all.order(id: 'desc')
+          render :index
+        end
         format.json { render json: @minified_link.errors, status: :unprocessable_entity }
       end
     end
