@@ -25,10 +25,12 @@ class MinifiedLinksController < ApplicationController
   # POST /minified_links
   # POST /minified_links.json
   def create
-    @minified_link = MinifiedLink.new(minified_link_params)
+
+    creator = MinifiedLinkCreator.call(params: minified_link_params)
+    @minified_link = creator.minified_link
 
     respond_to do |format|
-      if @minified_link.save
+      if creator.success?
         format.html { redirect_to root_path, notice: 'Minified link was successfully created.' }
         format.json { render :show, status: :created, location: @minified_link }
       else
@@ -36,7 +38,7 @@ class MinifiedLinksController < ApplicationController
           @minified_links = MinifiedLink.all.order(id: 'desc')
           render :index
         end
-        format.json { render json: @minified_link.errors, status: :unprocessable_entity }
+        format.json { render json: creator.errors, status: :unprocessable_entity }
       end
     end
   end

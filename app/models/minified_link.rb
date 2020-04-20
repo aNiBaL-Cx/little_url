@@ -15,10 +15,10 @@ class MinifiedLink < ApplicationRecord
 
   scope :search_by_url_key, ->(search_id) {  find_by(id: HashingService.instance.decode(search_id)[0]) }
 
-  private
   def full_url
     original_url&.downcase&.starts_with?('http') ? original_url : "http://#{original_url}"
   end
+  private
 
   def valid_url?
     !!"#{original_url}".match(/(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix)
