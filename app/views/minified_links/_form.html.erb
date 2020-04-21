@@ -11,12 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :original_url %>
-    <%= form.text_field :original_url %>
-  </div>
+  <div class="row">
+    <div class="field input-group col-md-10 col-sm-12">
+      <%#= form.label :original_url %>
+      <%= form.text_field :original_url, 
+                          class: 'form-control',
+                          placeholder: 'insert here the url to minify' %>
 
-  <div class="actions">
-    <%= form.submit %>
+      
+    </div>
+
+    <div class="actions form-group col-md-2 col-sm-12">
+      <%= form.submit 'Minify url', class: 'btn btn-primary col-sm-12' %>
+    </div>
   </div>
 <% end %>

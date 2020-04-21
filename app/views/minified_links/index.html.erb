@@ -1,13 +1,19 @@
-<p id="notice"><%= notice %></p>
-
+<% if notice %>
+<div id="notice" class="alert alert-primary" role="alert">
+  <%= notice %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% end -%>
 <h1>Little URL</h1>
 
-<div class="minifier-form-container">
+<div class="minifier-form-container pb-2">
   <%= render 'form', minified_link: @minified_link %>
 </div>
 
-<table>
-  <thead>
+<table class="table table-striped mt-3">
+  <thead class='thead-dark'>
     <tr>
       <th><%= t('activerecord.attributes.minified_link.original_url') %></th>
       <th><%= t('activerecord.attributes.minified_link.minified_path') %></th>

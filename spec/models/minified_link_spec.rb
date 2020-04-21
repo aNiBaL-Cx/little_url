@@ -68,6 +68,11 @@ RSpec.describe MinifiedLink, type: :model do
       it 'returns a full url, with http' do
         expect(subject.original_url).to eq('http://www.sapo.pt')
       end
+      
+      it 'stays empty, if empty' do
+        subject.original_url = ''
+        expect(subject.original_url).to eq('')
+      end
     end
 
     context 'filled with protocol' do
